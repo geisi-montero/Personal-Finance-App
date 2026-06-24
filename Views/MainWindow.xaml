@@ -1,0 +1,99 @@
+<Window x:Class="FinanzasApp.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:FinanzasApp.ViewModels"
+        xmlns:views="clr-namespace:FinanzasApp.Views"
+        Title="Finanzas Personal" Height="750" Width="1200"
+        MinHeight="600" MinWidth="900"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource ContentBgBrush}">
+
+    <Window.DataContext>
+        <vm:MainViewModel/>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:DashboardViewModel}">
+            <views:DashboardView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:TransactionsViewModel}">
+            <views:TransactionsView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:BudgetViewModel}">
+            <views:BudgetView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:CategoriesViewModel}">
+            <views:CategoriesView/>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="220"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Sidebar -->
+        <Border Grid.Column="0" Background="{StaticResource SidebarBgBrush}">
+            <DockPanel>
+                <Border DockPanel.Dock="Top" Padding="20,28,20,20">
+                    <StackPanel>
+                        <TextBlock Text="&#x1F48E; Finanzas" FontSize="20" FontWeight="Bold" Foreground="White"/>
+                        <TextBlock Text="Personal Finance" FontSize="11" Foreground="#475569" Margin="0,2,0,0"/>
+                    </StackPanel>
+                </Border>
+                <Border DockPanel.Dock="Top" Height="1" Background="#1E293B" Margin="16,0"/>
+                <StackPanel DockPanel.Dock="Top" Margin="0,16,0,0">
+                    <TextBlock Text="MENU" FontSize="10" FontWeight="Bold" Foreground="#334155" Margin="22,0,0,8"/>
+                    <RadioButton Style="{StaticResource NavButton}" GroupName="Nav"
+                                 IsChecked="{Binding SelectedNavIndex, Converter={StaticResource IndexToBoolConverter}, ConverterParameter=0}"
+                                 Command="{Binding NavigateCommand}" CommandParameter="Dashboard">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Dashboard" VerticalAlignment="Center" FontSize="14"/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource NavButton}" GroupName="Nav"
+                                 IsChecked="{Binding SelectedNavIndex, Converter={StaticResource IndexToBoolConverter}, ConverterParameter=1}"
+                                 Command="{Binding NavigateCommand}" CommandParameter="Transactions">
+                        <TextBlock Text="Transacciones" VerticalAlignment="Center" FontSize="14"/>
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource NavButton}" GroupName="Nav"
+                                 IsChecked="{Binding SelectedNavIndex, Converter={StaticResource IndexToBoolConverter}, ConverterParameter=2}"
+                                 Command="{Binding NavigateCommand}" CommandParameter="Budget">
+                        <TextBlock Text="Presupuestos" VerticalAlignment="Center" FontSize="14"/>
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource NavButton}" GroupName="Nav"
+                                 IsChecked="{Binding SelectedNavIndex, Converter={StaticResource IndexToBoolConverter}, ConverterParameter=3}"
+                                 Command="{Binding NavigateCommand}" CommandParameter="Categories">
+                        <TextBlock Text="Categorias" VerticalAlignment="Center" FontSize="14"/>
+                    </RadioButton>
+                </StackPanel>
+                <Border DockPanel.Dock="Bottom" Padding="16,12" Margin="8,0,8,12" CornerRadius="8" Background="#0D1B2A">
+                    <StackPanel>
+                        <TextBlock Text="Datos locales" FontSize="11" Foreground="#475569"/>
+                        <TextBlock Text="SQLite - Seguro" FontSize="10" Foreground="#334155" Margin="0,2,0,0"/>
+                    </StackPanel>
+                </Border>
+            </DockPanel>
+        </Border>
+
+        <!-- Main Content -->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="64"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0" Background="White" Padding="24,0">
+                <Border.Effect>
+                    <DropShadowEffect Color="#000000" Opacity="0.04" BlurRadius="8" ShadowDepth="1"/>
+                </Border.Effect>
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Left" Text="{Binding CurrentPage}"
+                               FontSize="18" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}"
+                               VerticalAlignment="Center"/>
+                </DockPanel>
+            </Border>
+            <ContentControl Grid.Row="1" Content="{Binding CurrentView}"/>
+        </Grid>
+    </Grid>
+</Window>

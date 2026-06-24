@@ -1,0 +1,23 @@
+<Application x:Class="FinanzasApp.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:helpers="clr-namespace:FinanzasApp.Helpers"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             StartupUri="Views/MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Assets/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <helpers:IndexToBoolConverter x:Key="IndexToBoolConverter"/>
+            <helpers:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+            <helpers:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter"/>
+            <helpers:TransactionTypeToColorConverter x:Key="TransactionTypeToColorConverter"/>
+            <helpers:TransactionTypeToSignConverter x:Key="TransactionTypeToSignConverter"/>
+            <helpers:AmountFormatConverter x:Key="AmountFormatConverter"/>
+            <helpers:HexColorToBrushConverter x:Key="HexColorToBrushConverter"/>
+            <helpers:BalanceColorConverter x:Key="BalanceColorConverter"/>
+            <helpers:PercentageToWidthConverter x:Key="PercentageToWidthConverter"/>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
