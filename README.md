@@ -29,14 +29,3 @@ Aplicación de escritorio para la gestión de finanzas personales, desarrollada 
 
 El proyecto implementa el patrón MVVM (Model-View-ViewModel), manteniendo una separación clara entre la interfaz de usuario, la lógica de negocio y el acceso a datos.
 
----
-
-## Vista Previa
-
-![alt text](image.png)
-
----
-
-## Licencia
-
-MIT License.
